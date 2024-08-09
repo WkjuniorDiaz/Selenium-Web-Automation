@@ -1,32 +1,55 @@
-# Selenium-Web-Automation
-This repository is part of my personal portfolio as a QA Automation Engineer. It showcases my skills in building automation frameworks from scratch using Selenium, Java and Cucumber. The project highlights my expertise in test case design, execution, reporting
+# Selenium Test Automation Framework with Cucumber
 
-## Installation 
-* Download [IntelliJ IDEA](https://www.jetbrains.com/idea/) 
-* Download [Github Desktop](https://desktop.github.com/)
+## Overview
+This repository hosts a sophisticated Selenium-based test automation framework utilizing Cucumber, Java, Cucumber Dependency Injection (DI), Factory Design Pattern, and the Page Object Model (POM). The framework is designed to enable scalable, maintainable, and efficient automation testing, supporting Behavior-Driven Development (BDD).
 
-## How to clone the project
-* Open Github desktop.
-* Select **Add-Clone Repository** from Left Menu.
-* Enter the repository URL (SSH)
-* Select the **Clone** button.
-* Select **Open in Intellij**, in case Intellij is not by default: Select "Options on the section Open the repository in your external editor".
-* Wait for the dependencies to finish downloading.
+## Features
+- **Behavior-Driven Development (BDD)**: Define test cases in plain English using Cucumber.
+- **Selenium WebDriver Integration**: Interact with web applications across multiple browsers.
+- **Dependency Injection**: Use Cucumber's DI capabilities to manage object creation and dependencies.
+- **Factory Design Pattern**: Implement factory classes to encapsulate the creation of page objects, ensuring better modularity and flexibility.
+- **Page Object Model (POM)**: Organize and maintain web elements and interactions using POM.
+- **Cross-Browser Testing**: Support for running tests on various browsers such as Chrome, Firefox, etc.
+- **Parallel Execution**: Ability to run tests in parallel for faster execution.
+- **Comprehensive Reporting**: Generate detailed test execution reports with extent report.
 
-## IntelliJ Project Setup
-* Select "File" from top menu bar
-* Select "Settings" option
-* Select "Plugins" option from Settings modal
-* Search for “Gherkin” plugin and install
-* Search for “Cucumber for Java” plugin and install
+## Prerequisites
+- Java JDK 8 or higher
+- Maven
+- IntelliJ IDEA
 
-## Running the project: 
-To run the project we need to use the following steps:
-1. Open the pom.xml
-2. On the left side of the IDEA you will find a section "Maven", click on "Maven"
-3. Click on the download icon and select "Download Sources" and wait for the dependencies to download
-4. On the right side of the IDEA, under Project tree search for the class **TestRunner** on the package of **runner**.
-5. Right click on the class "TestRunner" and select "Run TestRunner"
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/WkjuniorDiaz/Selenium-Web-Automation.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd your-repo
+   ```
+3. Install the required dependencies using Maven:
+   ```bash
+   mvn clean install
+   ```
+
+## Project Structure
+- `src/test/java`: Contains the main automation codebase.
+  - `features`: Stores the Cucumber feature files written in Gherkin syntax.
+  - `stepDefinitions`: Houses the Cucumber step definitions.
+  - `runner`: Contains test runner classes.
+  - `pagesObjects`: Implements the Page Object Model (POM) classes.
+      - `PageObjectManager.java`: Implements Factory Design Pattern classes to handle complex object creation.
+  - `utils`: Contains dependency injection configuration and Utility classes 
+- `src/test/resources`: Contains Cucumber feature files and configuration files.
+  - `globalProperties`: Holds browser and url to run test cases.
+  - extent.properties: Holds configuration of the reporter
+
+## Running Tests
+### Run All Tests
+To execute all test cases, use:
+```bash
+mvn test
+```
 
 ## Report
 To visualize the report after the execution of the TestRunner we need to use the following steps:
@@ -34,3 +57,7 @@ To visualize the report after the execution of the TestRunner we need to use the
 2. Right click on the file AutomationReport.html
 3. Select "Open in" 
 4. Select "Browser" choose the browser you prefer.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
