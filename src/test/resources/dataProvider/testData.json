@@ -29,5 +29,11 @@
   "TC007":{
     "username":"standard_user",
     "message": "Epic sadface: Password is required"
+  },
+  "TC008":{
+    "productName":"Sauce Labs Bike Light",
+    "firstName": "Jose",
+    "lastName": "Perez",
+    "postalCode": "0700"
   }
 }

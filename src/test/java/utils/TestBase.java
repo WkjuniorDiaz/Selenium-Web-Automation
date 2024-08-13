@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,14 +28,17 @@ public class TestBase {
 
         if (driver == null){
             if (browser.equalsIgnoreCase("chrome")){
-
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--disable-notifications");
                 WebDriverManager.chromedriver().setup();
-                this.driver = new ChromeDriver();
+                this.driver = new ChromeDriver(options);
             }
 
             if (browser.equalsIgnoreCase("firefox")){
+                FirefoxOptions options = new FirefoxOptions();
+                options.addArguments("--disable-notifications");
                 WebDriverManager.firefoxdriver().setup();
-                this.driver = new FirefoxDriver();
+                this.driver = new FirefoxDriver(options);
             }
 
             driver.manage().window().maximize();

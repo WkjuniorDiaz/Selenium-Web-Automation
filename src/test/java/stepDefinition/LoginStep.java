@@ -3,27 +3,30 @@ package stepDefinition;
 import com.google.gson.JsonObject;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.json.simple.JSONObject;
 import org.junit.Assert;
 import pageObject.LoginPage;
 import utils.TestContextSetup;
-import utils.TestDataLoader;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginStep {
     TestContextSetup testContextSetup;
     protected LoginPage loginPage;
-    TestDataLoader testDataLoader;
 
     public LoginStep(TestContextSetup testContextSetup){
         this.testContextSetup = testContextSetup;
         loginPage = testContextSetup.pageObjectManager.getLoginPage();
-        testDataLoader = new TestDataLoader();
     }
 
     @When("user login with credentials {string}")
     public void user_login_with_username_and_password(String testCase){
-        JsonObject testData = testDataLoader.getTestDataForTestCase(testCase);
-        String username = testData.get("username").getAsString();
-        String password = testData.get("password").getAsString();
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,String> testCaseData = (HashMap<String, String>) jsonData.get(testCase);
+        String username = testCaseData.get("username");
+        String password = testCaseData.get("password");
 
         loginPage.login(username,password);
     }
@@ -35,16 +38,18 @@ public class LoginStep {
 
     @When("user type username {string}")
     public void user_type_username(String testCase){
-        JsonObject testData = testDataLoader.getTestDataForTestCase(testCase);
-        String username = testData.get("username").getAsString();
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,String> testCaseData = (HashMap<String, String>) jsonData.get(testCase);
+        String username = testCaseData.get("username");
 
         loginPage.typeUsername(username);
     }
 
     @Then("an error message {string} should displayed")
     public void the_error_message_should_displayed(String testCase){
-        JsonObject testData = testDataLoader.getTestDataForTestCase(testCase);
-        String expectedErrorMessage = testData.get("message").getAsString();
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,String> testCaseData = (HashMap<String, String>) jsonData.get(testCase);
+        String expectedErrorMessage = testCaseData.get("message");
 
         loginPage.isErrorMessageDisplayed();
 

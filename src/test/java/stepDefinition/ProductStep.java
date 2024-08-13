@@ -1,10 +1,14 @@
 package stepDefinition;
 
+import com.google.gson.JsonObject;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.json.simple.JSONObject;
 import org.junit.Assert;
 import pageObject.ProductPage;
 import utils.TestContextSetup;
+
+import java.util.HashMap;
 
 public class ProductStep {
 
@@ -24,7 +28,11 @@ public class ProductStep {
     }
 
     @When("the user adds the product {string} to the cart")
-    public void the_user_adds_the_product_to_the_cart(String productName){
+    public void the_user_adds_the_product_to_the_cart(String testCase){
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,String> testCaseData = (HashMap<String, String>) jsonData.get(testCase);
+        String productName = testCaseData.get("productName");
+
         productPage.validateProductPage();
         productPage.addProduct(productName);
         productPage.validateIfRemoveEnabled(productName);

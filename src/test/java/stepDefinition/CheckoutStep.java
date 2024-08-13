@@ -6,23 +6,19 @@ import pageObject.ProductPage;
 import org.junit.Assert;
 import pageObject.CheckoutPage;
 import utils.TestContextSetup;
-import utils.TestDataLoader;
-
-import java.util.List;
 
 public class CheckoutStep {
     TestContextSetup testContextSetup;
     protected CheckoutPage checkoutPage;
-    TestDataLoader testDataLoader;
 
     public CheckoutStep(TestContextSetup testContextSetup){
         this.testContextSetup = testContextSetup;
         checkoutPage = testContextSetup.pageObjectManager.getCheckoutPage();
-        testDataLoader = new TestDataLoader();
     }
 
     @When("the user fills the checkout information with first name {string}, last name {string} and postal code {string}")
     public void the_user_fill_the_checkout_information(String firstName,String lastName,String postalCode){
+
         checkoutPage.fillCheckoutForm(firstName,lastName,postalCode);
     }
 
