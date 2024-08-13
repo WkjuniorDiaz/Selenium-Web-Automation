@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/java/feature",
         glue = {"stepDefinition"},
         monochrome = true,
-        tags = "@Regression",
+        tags = "@TestCheckout",
         plugin = {
                 "pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:.",

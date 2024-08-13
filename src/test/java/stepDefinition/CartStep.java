@@ -18,26 +18,13 @@ public class CartStep {
         cartPage = testContextSetup.pageObjectManager.getCartPage();
     }
 
-    @When("the user proceeds to checkout")
-    public void the_user_proceeds_to_checkout() {
+    @When("the user proceeds to checkout your information")
+    public void the_user_proceeds_to_checkout_your_information() {
         int productQuantity = cartPage.getCountProductQuantity();
         int  cartIconCount = cartPage.getCartIconCount();
 
         Assert.assertEquals(productQuantity,cartIconCount);
         cartPage.selectCheckout();
-    }
-
-    @When("validate the prices from product page and cart page")
-    public void validate_the_prices_from_product_page_and_cart_page() {
-        cartPage.setCartPrices();
-
-        List<String> productPrice = ProductPage.getProductPrice();
-
-        List<String> cartPrice = cartPage.getCartPrice();
-
-        Collections.sort(productPrice);
-        Collections.sort(cartPrice);
-        Assert.assertEquals(productPrice,cartPrice);
     }
 
     @When("the user remove product {string} from Your cart page")

@@ -24,13 +24,15 @@ public class CheckoutPage extends Base {
     WebElement btnCancel;
     @FindBy(id = "continue")
     WebElement btnContinue;
+    @FindBy(xpath = "//h3[@data-test='error']")
+    WebElement errorMessage;
     @FindBy(className = "title")
     WebElement checkoutOverViewTitle;
     @FindBy(className = "cart_desc_label")
     WebElement descriptionTxt;
-    @FindBy(xpath = "//div[.='Payment Information']")
+    @FindBy(xpath = "//div[.='Payment Information:']")
     WebElement paymentInformationTxt;
-    @FindBy(xpath = "//div[.='Shipping Information']")
+    @FindBy(xpath = "//div[.='Shipping Information:']")
     WebElement shippingInformationTxt;
     @FindBy(xpath = "//div[.='Price Total']")
     WebElement priceTotalTxt;
@@ -91,15 +93,19 @@ public class CheckoutPage extends Base {
         return getElementText(txtMessage1);
     }
 
-    public String getItemTotalPrice(){
+    public double getItemTotalPrice(){
         String itemTotalPrice = getElementText(itemTotalTxt).replace("Item total: $","");
-
-        return itemTotalPrice;
+        double totalPriceToDouble = Double.parseDouble(itemTotalPrice);
+        return totalPriceToDouble;
     }
 
     public void logOut(){
         clickOn(burgerMenu);
         waitVisibilityOf(btnLogout);
         clickOn(btnLogout);
+    }
+
+    public String getErrorMessage(){
+        return errorMessage.getText();
     }
 }
