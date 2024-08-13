@@ -24,6 +24,8 @@ public class CheckoutPage extends Base {
     WebElement btnCancel;
     @FindBy(id = "continue")
     WebElement btnContinue;
+    @FindBy(xpath = "//h3[@data-test='error']")
+    WebElement errorMessage;
     @FindBy(className = "title")
     WebElement checkoutOverViewTitle;
     @FindBy(className = "cart_desc_label")
@@ -101,5 +103,9 @@ public class CheckoutPage extends Base {
         clickOn(burgerMenu);
         waitVisibilityOf(btnLogout);
         clickOn(btnLogout);
+    }
+
+    public String getErrorMessage(){
+        return errorMessage.getText();
     }
 }

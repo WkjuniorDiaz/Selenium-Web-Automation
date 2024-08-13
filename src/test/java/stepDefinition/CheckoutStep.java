@@ -54,6 +54,16 @@ public class CheckoutStep {
         checkoutPage.logOut();
     }
 
+    @Then("an error message {string} should displayed on Checkout Your Information screen")
+    public void error_message_should_displayed(String testCase){
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,String> testCaseData = (HashMap<String, String>) jsonData.get(testCase);
+        String expectedMessage = testCaseData.get("errorMessage");
+        String actualMessage = checkoutPage.getErrorMessage();
+
+        Assert.assertEquals("Error message did not match UX message",expectedMessage,actualMessage);
+    }
+
 
 
 
