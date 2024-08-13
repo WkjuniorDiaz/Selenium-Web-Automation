@@ -35,5 +35,11 @@
     "firstName": "Jose",
     "lastName": "Perez",
     "postalCode": "0700"
+  },
+  "TC009":{
+    "productsNames":["Sauce Labs Fleece Jacket","Sauce Labs Onesie"],
+    "firstName": "Jose",
+    "lastName": "Perez",
+    "postalCode": "0700"
   }
 }

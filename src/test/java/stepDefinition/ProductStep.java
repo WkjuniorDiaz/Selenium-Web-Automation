@@ -1,8 +1,8 @@
 package stepDefinition;
 
-import com.google.gson.JsonObject;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import pageObject.ProductPage;
@@ -47,6 +47,23 @@ public class ProductStep {
     public void the_user_changes_the_product_sort_to(String sortOption){
         productPage.validateProductPage();
         productPage.sortBy(sortOption);
+    }
+
+    @When("the user adds multiple products {string} to the cart")
+    public void the_user_adds_multiple_products_to_the_cart(String testCase){
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,JSONArray> testCaseData = (HashMap<String, JSONArray>) jsonData.get(testCase);
+        JSONArray listProductName = testCaseData.get("productsNames");
+
+        productPage.validateProductPage();
+
+        for (Object productName:listProductName){
+            String product = (String) productName;
+
+            productPage.addProduct(product);
+            productPage.validateIfRemoveEnabled(product);
+            productPage.setProductPrice(product);
+        }
     }
 
     @Then("the selected sort option should be {string}")

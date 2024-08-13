@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class ProductPage extends Base {
 
-    static ArrayList<String> productPagePrice = new ArrayList<>();
+    static double productPagePrice;
     static String productPageCartCount = "";
 
     @FindBy(xpath = "//span[@class='title']")
@@ -65,34 +65,15 @@ public class ProductPage extends Base {
     public void  setProductPrice(String productName){
         By productPriceElement = By.xpath("//div[.='"+productName+"']/../../../div[@class='pricebar']/div");
         String getTextOfElement = getElementText(driver.findElement(productPriceElement));
-        String parseElement =getTextOfElement.replace("$","");
+        String priceText =getTextOfElement.replace("$","");
+        double pricetoDouble = Double.parseDouble(priceText);
 
-        productPagePrice.add(productName);
-        productPagePrice.add(parseElement);
+        productPagePrice = productPagePrice + pricetoDouble;
     }
 
-    public static List<String> getProductPrice(){
-        List<String> onlyPrices = new ArrayList<>();
+    public static double getProductPrice(){
 
-        Pattern pattern = Pattern.compile("\\d+(\\.\\d+)?"); // Regular expression to match decimal numbers
-
-        for (String str : productPagePrice) {
-            Matcher matcher = pattern.matcher(str);
-            while (matcher.find()) {
-                onlyPrices.add((matcher.group()));
-            }
-        }
-
-        return onlyPrices;
-    }
-
-    public static String getPriceOfaProduct(String productName){
-        for (int i = 0; i < productPagePrice.size(); i++){
-            if (productPagePrice.get(i).equals(productName)){
-                return productPagePrice.get(i + 1);
-            }
-        }
-        return  null;
+        return productPagePrice;
     }
 
     public void selectCart(){

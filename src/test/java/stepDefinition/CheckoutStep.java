@@ -2,10 +2,13 @@ package stepDefinition;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pageObject.ProductPage;
+import org.json.simple.JSONObject;
 import org.junit.Assert;
+import pageObject.ProductPage;
 import pageObject.CheckoutPage;
 import utils.TestContextSetup;
+
+import java.util.HashMap;
 
 public class CheckoutStep {
     TestContextSetup testContextSetup;
@@ -16,20 +19,31 @@ public class CheckoutStep {
         checkoutPage = testContextSetup.pageObjectManager.getCheckoutPage();
     }
 
-    @When("the user fills the checkout information with first name {string}, last name {string} and postal code {string}")
-    public void the_user_fill_the_checkout_information(String firstName,String lastName,String postalCode){
+    @When("the user fills the checkout information with {string} information")
+    public void the_user_fill_the_checkout_information(String testCase){
+        JSONObject jsonData = Hooks.jsonData;
+        HashMap<String,String> testCaseData = (HashMap<String, String>) jsonData.get(testCase);
+        String firstName = testCaseData.get("firstName");
+        String lastName = testCaseData.get("lastName");
+        String postalCode = testCaseData.get("postalCode");
 
         checkoutPage.fillCheckoutForm(firstName,lastName,postalCode);
     }
 
-    @When("the user clicks on the continue button")
-    public void the_user_clicks_on_the_continue_button(){
+    @When("the user proceeds to checkout overview")
+    public void the_user_proceeds_to_checkout_overview(){
         checkoutPage.selectContinue();
     }
 
-    @When("the user clicks on the finish button to complete the checkout")
-    public void the_user_clicks_on_the_finish_button_to_complete_the_checkout(){
+    @When("the user proceeds to checkout complete")
+    public void the_user_proceeds_to_checkout_complete() {
+        Double checkoutPrice = checkoutPage.getItemTotalPrice();
+        Double productPrice = ProductPage.getProductPrice();
+
         checkoutPage.validateCheckoutOverview();
+
+        Assert.assertEquals(productPrice,checkoutPrice);
+
         checkoutPage.selectFinish();
     }
 
@@ -38,14 +52,6 @@ public class CheckoutStep {
         checkoutPage.validateCheckoutComplete();
         Assert.assertEquals("Successful checkout message was not displayed","Thank you for your order!",checkoutPage.getTextMessage1());
         checkoutPage.logOut();
-    }
-
-    @When("validate price from product {string} to price of Item Total")
-    public void validate_price_from_product_to_price_of_item_total(String productName) {
-        String checkoutPrice = checkoutPage.getItemTotalPrice();
-        String productPrice = ProductPage.getPriceOfaProduct(productName);
-
-        Assert.assertEquals(productPrice,checkoutPrice);
     }
 
 
