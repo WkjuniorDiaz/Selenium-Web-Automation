@@ -12,52 +12,46 @@ import utils.Base;
 
 import java.time.Duration;
 
-public class LoginPage extends Base {
+public class LoginPage {
 
     @FindBy(xpath = "//div[@class='login_logo']")
-    WebElement loginTitle;
+    private WebElement loginTitle;
+
     @FindBy(id = "user-name")
-    WebElement usernameField;
+    private WebElement usernameField;
 
     @FindBy(id = "password")
-    WebElement passwordField;
+    private WebElement passwordField;
 
     @FindBy(id = "login-button")
-    WebElement btnLogin;
+    private WebElement btnLogin;
 
     @FindBy(xpath = "//h3[@data-test='error']")
-    WebElement errorMessageContainer;
+    private WebElement errorMessageContainer;
 
     public LoginPage(WebDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void login(String username, String password) {
-        waitVisibilityOf(loginTitle);
-        enterData(usernameField, username);
-        enterData(passwordField, password);
-        clickOn(btnLogin);
+    public WebElement getLoginTitle(){
+        return loginTitle;
     }
 
-    public void typeUsername(String username){
-        waitVisibilityOf(loginTitle);
-        enterData(usernameField,username);
+    public WebElement getUsernameField(){
+        return usernameField;
     }
 
-    public void selectLoginBtn(){
-        clickOn(btnLogin);
+    public WebElement getPasswordField(){
+        return passwordField;
     }
 
-    public void isErrorMessageDisplayed(){
-        try {
-            waitVisibilityOf(errorMessageContainer);
-        } catch (TimeoutException e) {
-            throw new Error("The container of the error message didn't displayed");
-        }
+    public WebElement getBtnLogin(){
+        return btnLogin;
     }
 
-    public String getErrorMessageText(){
-        return getElementText(errorMessageContainer);
+    public WebElement getErrorMessageContainer(){
+        return errorMessageContainer;
     }
+
+
 }
