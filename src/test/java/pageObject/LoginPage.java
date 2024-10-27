@@ -53,5 +53,9 @@ public class LoginPage {
         return errorMessageContainer;
     }
 
+    public String getErrorMessageText(){
+        return errorMessageContainer.getText();
+    }
+
 
 }

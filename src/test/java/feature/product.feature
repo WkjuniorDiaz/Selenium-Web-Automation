@@ -2,7 +2,7 @@
   Feature:Product
 
     Background: User log in
-      Given user login with valid credentials "TC001"
+      Given user login with credentials "TC001"
 
       Scenario: Verify product sorting functionality
         When the user changes the product sort to "Price (low to high)"

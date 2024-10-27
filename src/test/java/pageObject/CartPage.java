@@ -14,17 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CartPage extends Base {
+public class CartPage {
 
-    List<String> cartPagePrice = new ArrayList<>();
-    int cartIconCount = 0;
-
-    int countProductQuantity;
+    WebDriver driver;
 
     @FindBy(id = "checkout")
     WebElement btnCheckout;
+
     @FindBys(@FindBy(className = "inventory_item_price"))
     List<WebElement> listPrices;
+
     @FindBy(className = "title")
     WebElement cartTitle;
 
@@ -33,52 +32,43 @@ public class CartPage extends Base {
 
 
     public CartPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
         PageFactory.initElements(driver,this);
     }
 
-    public void selectCheckout(){
-        waitVisibilityOf(btnCheckout);
-        clickOn(btnCheckout);
+    public WebElement getBtnCheckout(){
+        return btnCheckout;
     }
 
-    public void  setCartPrices(){
-        waitVisibilityOf(cartTitle);
-
-        List<String> prices = listPrices.stream()
-                .map(WebElement::getText)
-                .map(price -> price.replace("$", ""))
-                .collect(Collectors.toList());
-
-        cartPagePrice = prices;
+    public List<WebElement> getListPrices(){
+        return listPrices;
     }
 
-    public List<String> getCartPrice(){
-        return cartPagePrice;
+    public WebElement getCartTitle(){
+        return cartTitle;
     }
 
-    public void setProductQuantity(String productName){
+    public WebElement getCartIcon(){
+        return cartIcon;
+    }
+
+    public WebElement getProductQuantity(String productName){
         By productQuantityElement = By.xpath("//div[.='"+productName+"']/../../../div[@class='cart_quantity']");
-        int productQuantity = Integer.parseInt(getElementText(driver.findElement(productQuantityElement)));
-        countProductQuantity = countProductQuantity + productQuantity;
+        return driver.findElement(productQuantityElement);
     }
 
-    public int getCountProductQuantity(){
-        return countProductQuantity;
-    }
-
-    public void  setCartIconCount(){
-        cartIconCount = Integer.parseInt(getElementText(cartIcon));
-    }
-
-    public int getCartIconCount(){
-        return  cartIconCount;
-    }
-
-    public void removeProduct(String productName){
+    public WebElement getRemoveButtonOfProduct(String productName){
         By removeBtnOfProduct = By.xpath("//div[.='"+productName+"']/../following-sibling::div/button");
 
-        clickOn(driver.findElement(removeBtnOfProduct));
+        return driver.findElement(removeBtnOfProduct);
+    }
+
+    public String getProductQuantityText(String productName){
+        return getProductQuantity(productName).getText();
+    }
+
+    public String getCartIconText(){
+        return cartIcon.getText();
     }
 
 }

@@ -4,6 +4,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
+import pageActions.ProductActions;
 import pageObject.ProductPage;
 import pageObject.CheckoutPage;
 import utils.TestContextSetup;
@@ -38,7 +39,7 @@ public class CheckoutStep {
     @When("the user proceeds to checkout complete")
     public void the_user_proceeds_to_checkout_complete() {
         Double checkoutPrice = checkoutPage.getItemTotalPrice();
-        Double productPrice = ProductPage.getProductPrice();
+        Double productPrice = ProductActions.getProductPrice();
 
         checkoutPage.validateCheckoutOverview();
 

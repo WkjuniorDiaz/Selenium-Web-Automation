@@ -10,13 +10,11 @@ import java.time.Duration;
 
 public class LoginActions {
 
-    LoginPage loginPage;
-    WebDriver driver;
-    WebDriverWait wait;
+    private final LoginPage loginPage;
+    private final WebDriverWait wait;
 
     public LoginActions(LoginPage loginPage,WebDriver driver){
-        this.driver = driver;
-        wait = new WebDriverWait(this.driver, Duration.ofSeconds(4));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         this.loginPage = loginPage;
     }
 
@@ -44,7 +42,4 @@ public class LoginActions {
         }
     }
 
-    public String getErrorMessageText(){
-        return loginPage.getErrorMessageContainer() .getText();
-    }
 }

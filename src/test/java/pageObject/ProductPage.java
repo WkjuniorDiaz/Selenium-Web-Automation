@@ -16,98 +16,74 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class ProductPage extends Base {
+public class ProductPage {
 
-    static double productPagePrice;
-    static String productPageCartCount = "";
+    WebDriver driver;
 
     @FindBy(xpath = "//span[@class='title']")
-    WebElement productTitle;
+    private WebElement productTitle;
+
     @FindBy(id = "shopping_cart_container")
-    WebElement cartIcon;
+    private WebElement cartIcon;
+
     @FindBy(className = "active_option")
-    WebElement activeSortBy;
+    private WebElement activeSortBy;
+
     @FindBy(className = "product_sort_container")
-    WebElement sortByOpt;
+    private WebElement sortByOpt;
+
     @FindBys(@FindBy(className = "inventory_item_price"))
-    List<WebElement> itemsPrice;
+    private List<WebElement> itemsPrice;
 
     public ProductPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void validateProductPage() {
-        waitVisibilityOf(productTitle);
+    public WebElement getProductTitle(){
+        return productTitle;
     }
 
-    public String getProductTitle() {
-        return getElementText(productTitle);
+    public WebElement getCartIcon(){
+        return cartIcon;
     }
 
-    public void addProduct(String productName) {
-        By addToCartBtnOfElement = By.xpath("//div[.='"+productName+"']/../../../div/button");
-
-        waitVisibilityOf(driver.findElement(addToCartBtnOfElement));
-        clickOn(driver.findElement(addToCartBtnOfElement));
+    public WebElement getActiveSortBy(){
+        return activeSortBy;
     }
 
-    public void validateIfRemoveEnabled(String productName) {
-        By addToCartBtnOfElement = By.xpath("//div[.='"+productName+"']/../../../div/button");
-
-        try {
-            waitAttributeContaining(driver.findElement(addToCartBtnOfElement),"data-test","remove");
-        }catch (TimeoutException e){
-            throw new Error("Remove button was not enable");
-        }
+    public WebElement getSortByOpt(){
+        return sortByOpt;
     }
 
-    public void  setProductPrice(String productName){
+    public List<WebElement> getItemsPrice(){
+        return itemsPrice;
+    }
+
+    public WebElement getAddToCartButton(String productName){
+        By addToCartBtn = By.xpath("//div[.='"+productName+"']/../../../div/button");
+        return driver.findElement(addToCartBtn);
+    }
+
+    public WebElement getProductsPrice(String productName){
         By productPriceElement = By.xpath("//div[.='"+productName+"']/../../../div[@class='pricebar']/div");
-        String getTextOfElement = getElementText(driver.findElement(productPriceElement));
-        String priceText =getTextOfElement.replace("$","");
-        double pricetoDouble = Double.parseDouble(priceText);
-
-        productPagePrice = productPagePrice + pricetoDouble;
+        return driver.findElement(productPriceElement);
     }
 
-    public static double getProductPrice(){
-
-        return productPagePrice;
+    public String getProductTitleText() {
+        return productTitle.getText();
     }
 
-    public void selectCart(){
-        clickOn(cartIcon);
+    public String getProductsPriceText(String productName){
+        return getProductsPrice(productName).getText();
     }
 
-    public void setValueOfCart(){
-        productPageCartCount = getElementText(cartIcon);
-    }
-
-    public static String getValueOfCart(){
-        return productPageCartCount;
-    }
-
-    public void sortBy(String sortOption){
-        Select drpSortBy = new Select(sortByOpt);
-        drpSortBy.selectByVisibleText(sortOption);
+    public String getCartIconText(){
+        return cartIcon.getText();
     }
 
     public String getSortByText(){
-        return getElementText(activeSortBy);
-    }
-
-    public boolean verifyAscendingOrder(){
-        boolean ascendingOrder;
-
-        List<Double> prices = itemsPrice.stream()
-                .map(WebElement::getText)
-                .map(price -> Double.parseDouble(price.replace("$", "")))
-                .collect(Collectors.toList());
-
-        ascendingOrder = prices.equals(prices.stream().sorted().collect(Collectors.toList()));
-
-        return ascendingOrder;
+        return activeSortBy.getText();
     }
 
 }

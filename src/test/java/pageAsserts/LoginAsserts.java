@@ -6,15 +6,14 @@ import pageObject.LoginPage;
 
 public class LoginAsserts {
 
-    LoginPage loginPage;
-    WebDriver driver;
+    private final LoginPage loginPage;
 
-    public LoginAsserts(LoginPage loginPage,WebDriver driver){
-        this.driver = driver;
+    public LoginAsserts(LoginPage loginPage){
         this.loginPage = loginPage;
     }
 
     public void verifyErrorMessage(String expectedErrorMessage){
-        Assert.assertEquals("Error message did not match UX message",expectedErrorMessage,loginPage.getErrorMessageContainer().getText());
+        String actualErrorMessage = loginPage.getErrorMessageText();
+        Assert.assertEquals("Error message did not match UX message",expectedErrorMessage,actualErrorMessage);
     }
 }

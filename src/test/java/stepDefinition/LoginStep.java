@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import pageActions.LoginActions;
+import pageAsserts.LoginAsserts;
 import pageObject.LoginPage;
 import utils.TestContextSetup;
 
@@ -15,11 +16,13 @@ import java.util.Map;
 
 public class LoginStep {
     TestContextSetup testContextSetup;
-    protected LoginActions loginActions;
+    private final LoginActions loginActions;
+    private final LoginAsserts loginAsserts;
 
     public LoginStep(TestContextSetup testContextSetup){
         this.testContextSetup = testContextSetup;
         loginActions = testContextSetup.pageObjectManager.getLoginActions();
+        loginAsserts = testContextSetup.pageObjectManager.getLoginAsserts();
     }
 
     @When("user login with credentials {string}")
@@ -54,7 +57,8 @@ public class LoginStep {
 
         loginActions.isErrorMessageDisplayed();
 
-        Assert.assertEquals("Error message did not match UX message",expectedErrorMessage,loginActions.getErrorMessageText());
+        loginAsserts.verifyErrorMessage(expectedErrorMessage);
+
     }
 
 
