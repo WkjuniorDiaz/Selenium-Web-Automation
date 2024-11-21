@@ -1,15 +1,9 @@
 package stepDefinition;
 
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import pageActions.CartActions;
 import pageAsserts.CartAsserts;
-import pageObject.CartPage;
-import pageObject.ProductPage;
 import utils.TestContextSetup;
-
-import java.util.Collections;
-import java.util.List;
 
 public class CartStep {
     TestContextSetup testContextSetup;
@@ -18,8 +12,8 @@ public class CartStep {
 
     public CartStep(TestContextSetup testContextSetup) {
         this.testContextSetup = testContextSetup;
-        cartActions = testContextSetup.pageObjectManager.getCartActions();
-        cartAsserts = testContextSetup.pageObjectManager.getCartAsserts();
+        cartActions = testContextSetup.objectFactory.getCartActions();
+        cartAsserts = testContextSetup.objectFactory.getCartAsserts();
     }
 
     @When("the user proceeds to checkout your information")

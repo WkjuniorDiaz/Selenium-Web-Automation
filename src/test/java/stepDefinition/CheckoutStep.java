@@ -5,7 +5,6 @@ import io.cucumber.java.en.When;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import pageActions.ProductActions;
-import pageObject.ProductPage;
 import pageObject.CheckoutPage;
 import utils.TestContextSetup;
 
@@ -17,7 +16,7 @@ public class CheckoutStep {
 
     public CheckoutStep(TestContextSetup testContextSetup){
         this.testContextSetup = testContextSetup;
-        checkoutPage = testContextSetup.pageObjectManager.getCheckoutPage();
+        checkoutPage = testContextSetup.objectFactory.getCheckoutPage();
     }
 
     @When("the user fills the checkout information with {string} information")

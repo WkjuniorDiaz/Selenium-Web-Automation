@@ -1,18 +1,13 @@
 package stepDefinition;
 
-import com.google.gson.JsonObject;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.json.simple.JSONObject;
-import org.junit.Assert;
 import pageActions.LoginActions;
 import pageAsserts.LoginAsserts;
-import pageObject.LoginPage;
 import utils.TestContextSetup;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class LoginStep {
     TestContextSetup testContextSetup;
@@ -21,8 +16,8 @@ public class LoginStep {
 
     public LoginStep(TestContextSetup testContextSetup){
         this.testContextSetup = testContextSetup;
-        loginActions = testContextSetup.pageObjectManager.getLoginActions();
-        loginAsserts = testContextSetup.pageObjectManager.getLoginAsserts();
+        loginActions = testContextSetup.objectFactory.getLoginActions();
+        loginAsserts = testContextSetup.objectFactory.getLoginAsserts();
     }
 
     @When("user login with credentials {string}")

@@ -18,8 +18,8 @@ public class ProductStep {
 
     public ProductStep(TestContextSetup testContextSetup){
         this.testContextSetup = testContextSetup;
-        productActions = testContextSetup.pageObjectManager.getProductActions();
-        productAsserts = testContextSetup.pageObjectManager.getProductAsserts();
+        productActions = testContextSetup.objectFactory.getProductActions();
+        productAsserts = testContextSetup.objectFactory.getProductAsserts();
     }
 
     @Then("the product page should displayed")

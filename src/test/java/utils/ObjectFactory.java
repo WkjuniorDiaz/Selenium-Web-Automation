@@ -1,4 +1,4 @@
-package pageObject;
+package utils;
 
 import org.openqa.selenium.WebDriver;
 import pageActions.CartActions;
@@ -7,8 +7,12 @@ import pageActions.ProductActions;
 import pageAsserts.CartAsserts;
 import pageAsserts.LoginAsserts;
 import pageAsserts.ProductAsserts;
+import pageObject.CartPage;
+import pageObject.CheckoutPage;
+import pageObject.LoginPage;
+import pageObject.ProductPage;
 
-public class PageObjectManager {
+public class ObjectFactory {
 
     public WebDriver driver;
     public LoginPage loginPage;
@@ -23,7 +27,7 @@ public class PageObjectManager {
     public CartAsserts cartAsserts;
 
 
-    public PageObjectManager(WebDriver driver){
+    public ObjectFactory(WebDriver driver){
         this.driver = driver;
     }
 
