@@ -13,7 +13,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 public class TestBase {
-    public WebDriver driver;
+    private WebDriver driver;
 
     public WebDriver WebdriverManager() throws IOException {
         FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/globalProperties/global.properties");

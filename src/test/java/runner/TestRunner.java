@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/java/feature",
         glue = {"stepDefinition"},
         monochrome = true,
-        tags = "@Login",
+        tags = "@Product",
         plugin = {
                 "pretty",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:.",
